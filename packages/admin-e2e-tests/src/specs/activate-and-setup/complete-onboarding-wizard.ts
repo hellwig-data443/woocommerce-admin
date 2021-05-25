@@ -4,6 +4,7 @@
 import { OnboardingWizard } from '../../pages/OnboardingWizard';
 import { WcHomescreen } from '../../pages/WcHomescreen';
 import { TaskTitles } from '../../constants/taskTitles';
+import { resetWooCommerceState } from '../../utils/actions';
 import { Login } from '../../pages/Login';
 import { WcSettings } from '../../pages/WcSettings';
 
@@ -36,6 +37,8 @@ const testAdminOnboardingWizard = () => {
 		} );
 
 		it( 'can start the profile wizard', async () => {
+			await resetWooCommerceState();
+
 			await profileWizard.navigate();
 		} );
 
