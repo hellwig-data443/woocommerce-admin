@@ -21,7 +21,7 @@ import {
 /**
  * Internal dependencies
  */
-import { ActivityCard } from '../header/activity-panel/activity-card';
+import { ActivityCard } from '~/activity-panel/activity-card';
 import { hasValidNotes } from './utils';
 import { getScreenName } from '../utils';
 import './index.scss';

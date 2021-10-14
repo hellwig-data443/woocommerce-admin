@@ -29,7 +29,7 @@ import { useSlot } from '@woocommerce/experimental';
  */
 import './style.scss';
 import { isNotesPanelVisible } from './unread-indicators';
-import { isWCAdmin } from '../../dashboard/utils';
+import { isWCAdmin } from '~/dashboard/utils';
 import { Tabs } from './tabs';
 import { SetupProgress } from './setup-progress';
 import { DisplayOptions } from './display-options';
@@ -39,8 +39,8 @@ import {
 	getLowStockCount as getLowStockProducts,
 	getOrderStatuses,
 	getUnreadOrders,
-} from '../../homescreen/activity-panel/orders/utils';
-import { getUnapprovedReviews } from '../../homescreen/activity-panel/reviews/utils';
+} from '../homescreen/activity-panel/orders/utils';
+import { getUnapprovedReviews } from '../homescreen/activity-panel/reviews/utils';
 import { ABBREVIATED_NOTIFICATION_SLOT_NAME } from './panels/inbox/abbreviated-notifications-panel';
 
 const HelpPanel = lazy( () =>
