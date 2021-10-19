@@ -58,7 +58,7 @@ class TaskLists {
 	 */
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'set_active_task' ), 5 );
-		add_action( 'admin_init', array( __CLASS__, 'init_tasks' ) );
+		add_action( 'init', array( __CLASS__, 'init_tasks' ) );
 	}
 
 	/**
