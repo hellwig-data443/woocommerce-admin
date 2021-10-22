@@ -72,6 +72,10 @@ class Tax {
 				false !== get_option( 'woocommerce_no_sales_tax' ),
 			'is_visible'   => true,
 			'time'         => __( '1 minute', 'woocommerce-admin' ),
+			'extra'        => array(
+				'automated_support_countries' => self::get_automated_support_countries(),
+				'tax_jar_activated'           => class_exists( 'WC_Taxjar' ),
+			),
 		);
 	}
 
@@ -85,7 +89,7 @@ class Tax {
 			return false;
 		}
 
-		return in_array( WC()->countries->get_base_country(), self::get_automated_tax_supported_countries(), true );
+		return in_array( WC()->countries->get_base_country(), self::get_automated_support_countries(), true );
 	}
 
 	/**
@@ -93,7 +97,7 @@ class Tax {
 	 *
 	 * @return array
 	 */
-	public static function get_automated_tax_supported_countries() {
+	public static function get_automated_support_countries() {
 		// https://developers.taxjar.com/api/reference/#countries .
 		$tax_supported_countries = array_merge(
 			array( 'US', 'CA', 'AU' ),
