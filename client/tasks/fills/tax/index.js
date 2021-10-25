@@ -11,7 +11,6 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { H, Link, Stepper, Plugins, Spinner } from '@woocommerce/components';
 import { getAdminLink } from '@woocommerce/wc-admin-settings';
 import {
-	ONBOARDING_STORE_NAME,
 	OPTIONS_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	SETTINGS_STORE_NAME,
@@ -122,7 +121,6 @@ class Tax extends Component {
 
 	updateAutomatedTax( isEnabling ) {
 		const {
-			clearTaskStatusCache,
 			createNotice,
 			onComplete,
 			updateAndPersistSettingsForGroup,
@@ -145,8 +143,6 @@ class Tax extends Component {
 			} ),
 		] )
 			.then( () => {
-				clearTaskStatusCache();
-
 				if ( isEnabling ) {
 					createNotice(
 						'success',
@@ -518,7 +514,6 @@ const TaxWrapper = compose(
 			isJetpackConnected,
 			isPluginsRequesting,
 		} = select( PLUGINS_STORE_NAME );
-		const { getTasksStatus } = select( ONBOARDING_STORE_NAME );
 
 		const { general: generalSettings = {} } = getSettings( 'general' );
 		const countryCode = getCountryCode(
@@ -543,8 +538,6 @@ const TaxWrapper = compose(
 		const jetpackOptIn = getOption( 'woocommerce_setup_jetpack_opted_in' );
 		const tosAccepted = connectOptions.tos_accepted || jetpackOptIn === '1';
 
-		const tasksStatus = getTasksStatus();
-
 		const isPending =
 			isUpdateSettingsRequesting( 'tax' ) ||
 			isUpdateSettingsRequesting( 'general' );
@@ -565,7 +558,6 @@ const TaxWrapper = compose(
 			isPending,
 			isResolving,
 			pluginsToActivate,
-			tasksStatus,
 			taxSettings,
 			tosAccepted,
 		};
@@ -576,13 +568,8 @@ const TaxWrapper = compose(
 		const { updateAndPersistSettingsForGroup } = dispatch(
 			SETTINGS_STORE_NAME
 		);
-		const { invalidateResolutionForStoreSelector } = dispatch(
-			ONBOARDING_STORE_NAME
-		);
 
 		return {
-			clearTaskStatusCache: () =>
-				invalidateResolutionForStoreSelector( 'getTasksStatus' ),
 			createNotice,
 			updateAndPersistSettingsForGroup,
 			updateOptions,
