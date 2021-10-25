@@ -77,11 +77,11 @@ class Tax extends Component {
 	}
 
 	isTaxJarSupported() {
-		const { countryCode, tasksStatus } = this.props;
+		const { countryCode, task } = this.props;
 		const {
 			automatedTaxSupportedCountries = [],
 			taxJarActivated,
-		} = tasksStatus;
+		} = task.extra;
 
 		return (
 			! taxJarActivated && // WCS integration doesn't work with the official TaxJar plugin.
@@ -594,8 +594,12 @@ registerPlugin( 'wc-admin-onboarding-task-tax', {
 	scope: 'woocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="tax">
-			{ ( { onComplete, query } ) => (
-				<TaxWrapper onComplete={ onComplete } query={ query } />
+			{ ( { onComplete, query, task } ) => (
+				<TaxWrapper
+					onComplete={ onComplete }
+					query={ query }
+					task={ task }
+				/>
 			) }
 		</WooOnboardingTask>
 	),
